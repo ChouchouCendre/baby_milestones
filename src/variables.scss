@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'frutiger';
+  src: local('frutiger light'), url(/fonts/Frutiger-LightCn.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'thinking of betty';
+  src: local('thinking of betty'), url(/fonts/Thinking_of_Betty.ttf) format('ttf');
+}
+
+@mixin font2() {
+  font-family: 'thinking of betty';
+}
+
+@mixin breakpoint($point) {
+  @if $point == mobile {
+     @media (max-width: 47.95em)  { @content ; } // 767px
+  }
+  @else if $point == tablet {
+    @media (min-width: 48em) { @content ; } // 768px
+  }
+  @else if $point == desktop {
+    @media (min-width: 64em) { @content ; } // 1024px
+  }
+}

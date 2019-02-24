@@ -1,0 +1,57 @@
+@import './variables.scss';
+
+body {
+  padding: 20px;
+}
+
+.App {
+  text-align: center;
+  border: 1px solid #eee;
+  font-family: 'frutiger';
+  padding: 50px;
+}
+
+.firstname {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  .firstname_field {
+    font-family: 'thinking of betty';
+    font-size: 50px;
+    margin: 0 60px;
+  }
+  .trait:nth-child(2) {
+    transform: scaleX(-1);
+  }
+}
+
+.three {
+  display: flex;
+  justify-content: space-around;
+  padding: 100px 0;
+  .three-second {
+    @include font2();
+    font-size: 40px;
+  }
+  .three-date {
+    @include font2();
+    font-size: 20px;
+  }
+  .three_title {
+    margin-bottom: 15px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+.heart {
+  position: absolute;
+}
+
+.heart2 {
+  position: absolute;
+  right: 60px;
+  transform: scaleX(-1);
+}
