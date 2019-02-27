@@ -55,3 +55,32 @@ button {
   right: 60px;
   transform: scaleX(-1);
 }
+
+.pictures_container {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  // grid-template-rows: repeat(3, 100px);
+  grid-gap: 50px;
+  // align-items: center;
+  grid-template-areas: 
+    "a a b"
+    "a a b"
+    "c d d";
+  align-content: space-between;
+  justify-content: space-around;
+  // grid-auto-rows: 100px;
+  /*
+  .pictures_line_img {
+    flex: 1 1 1;
+    // width: 25%;
+  }
+  */
+}
+
+.pictures_line_img {
+  .popin_img {
+    position: absolute;
+    pointer-events: none;
+    margin-top: 0;
+  }
+}

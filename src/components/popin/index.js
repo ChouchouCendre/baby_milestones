@@ -1,45 +1,47 @@
 import React, { PureComponent } from 'react';
+import Cropper from 'react-easy-crop';
+import Slider from '@material-ui/lab/Slider';
+import TextField from '@material-ui/core/TextField';
 
 import './popin.scss';
-// import Picture from './../picture';
-
-const movieNames = ['INDIANA JONES', 'GLADIATOR', 'MAD MAX', 'BATMAN', 'GAME OF THRONES'];
-let popinTimeline = null;
 
 class Popin extends PureComponent {
 
   constructor() {
     super();
     this.state = {
-      inputName: '',
-      file: undefined,
-      img: 'img/IMG_8109.jpg',
+     imageSrc: null,
+      crop: { x: 0, y: 0 },
+      zoom: 1,
+      aspect: 4 / 4,
+      texte: 'Cat in the Hat',
+      legend: 'Lorem ipsum',
     };
     this.clicClose = this.clicClose.bind(this);
     this.handlerTimer = this.handlerTimer.bind(this);
     this.clickChoice = this.clickChoice.bind(this);
-    this.fileChangedHandler = this.fileChangedHandler.bind(this);
-    this.mouseDown = this.mouseDown.bind(this);
-    this.mouseUp = this.mouseUp.bind(this);
+    // this.fileChangedHandler = this.fileChangedHandler.bind(this);
+    this.clicValidate = this.clicValidate.bind(this);
   }
 
   componentDidMount() {
     this.initEvents();
+    // this.setState({ texte: this.props.currentLabel });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.displayPopin !== this.props.displayPopin) {
+      /*
       if (this.props.displayPopin) {
         if (popinTimeline) popinTimeline.restart();
         this.count = 0;
-        const rand = Math.round(Math.random() * (movieNames.length - 1));
-        this.currentMovie = movieNames[rand];
-        this.interval = setInterval(this.handlerTimer, 300);
       } else {
         clearInterval(this.interval);
         this.interval = null;
         if (popinTimeline) popinTimeline.pause();
       }
+      */
+      this.setState({ texte: this.props.currentDatas.label, legend: this.props.currentDatas.legend, imageSrc: this.props.currentDatas.img });
     }
   }
 
@@ -64,38 +66,54 @@ class Popin extends PureComponent {
     this.props.clicPopin(e.currentTarget.getAttribute('data-id'));
   }
 
-  fileChangedHandler(event) {
-    const file = event.target.files[0];
-    console.log('file', file);
-    // this.setState({ img: file });
-    let reader = new FileReader();
+  clicValidate() {
+    this.props.updateDatas(this.state.texte, this.state.legend, this.state.imageSrc, this.state.crop, this.state.zoom);
+  }
 
-    reader.onloadend = () => {
+  // REACT EASY CROP
+
+  onCropChange = crop => {
+    this.setState({ crop })
+  }
+
+  onCropComplete = (croppedArea, croppedAreaPixels) => {
+    // console.log(croppedArea, croppedAreaPixels)
+  }
+
+  onZoomChange = zoom => {
+    this.setState({ zoom })
+  }
+
+  readFile(file) {
+    return new Promise(resolve => {
+      const reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        () => resolve(reader.result),
+        false
+      )
+      reader.readAsDataURL(file)
+    })
+  }
+
+  onFileChange = async e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const imageDataUrl = await this.readFile(e.target.files[0])
       this.setState({
-        file: file,
-        img: reader.result
-      });
+        imageSrc: imageDataUrl,
+        crop: { x: 0, y: 0 },
+        zoom: 1,
+      })
     }
-
-    reader.readAsDataURL(file)
   }
 
-  mouseDown() {
-    console.log('@@@ mouseDown');
-    document.addEventListener('mousemove', this.mouseMove);
-    document.addEventListener('mousemup', this.mouseUp);
-    // document.addEventListener('mousemove', this.mouseMove);
-  }
+  // MATERIAL TEXTFIELD
 
-  mouseMove() {
-    console.log('@@@ mouseMove');
-  }
-
-  mouseUp() {
-    console.log('@@@ mouseUp');
-    document.removeEventListener('mousemove', this.mouseMove);
-    document.removeEventListener('mousemup', this.mouseUp);
-  }
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
 
   render() {
     const classDialog = this.props.displayPopin ? ' dialog--open' : '';
@@ -115,55 +133,69 @@ class Popin extends PureComponent {
             <div className="dialog-inner" style={{ backgroundImage: `url(img/backgrounds/${this.state.nameItem}.jpg)` }}>
             */}
             <div className="dialog-inner">
-              <h2>1. Texte</h2>
-              <input type="text" />
-              <hr />
-              <h2>2. Photo</h2>
-              <div className="popin_img" onMouseDown={this.mouseDown} onMouseUp={this.mouseUp}>
-                {/* <Picture img="img/IMG_8109.jpg" months="21" /> */}
-                {/*
-                <div className="pictures_line_img" style={{ backgroundImage: `url(${this.state.img})` }} />
-                */}
-                <img src={this.state.img} alt="" />
-                {/* <button onClick={this.uploadHandler}>Upload!</button> */}
-              </div>
-              <input type="file" accept=".jpg,.jpeg,.png,.gif,.bmp" onChange={this.fileChangedHandler} />
-              <div className="popin_info">Vos photos ne sont pas chargées sur un serveur.</div>
-              <hr />
-              <h2>3. Légende</h2>
-              <input type="text" />
-              <div className="intro-subtitle animated flipInX"><span></span></div>
-
-              {/*
-              <div className="dialog__choices">
-                <div className="dialog__choice" onClick={ this.clickChoice }>
-                  <div className="multichoice">
-                    <div>
-                      <span></span>
-                      <div>INCEPTION</div>
-                    </div>
-                    <div>
-                      <span className="movie1"></span>
-                      <div>SAW</div>
-                    </div>
-                    <div>
-                      <span className="movie2"></span>
-                      <div>AVENGERS</div>
-                    </div>
+              <div className="popin_areas">
+                <div className="popin_left">
+                  <div className="popin_bloc">
+                  <h2>1. Modifier le texte</h2>
+                    {/* <input type="text" /> */}
+                    <div className="popin_bloc_textfield">
+                    <TextField
+              id="standard-name"
+              label="Texte"
+              className="popin_bloc_input"
+              value={this.state.texte}
+              onChange={this.handleChange('texte')}
+              margin="normal"
+            />
+            </div>
                   </div>
-                  <button className="action" data-dialog-close="a"><span></span>
-                  </button>
+                  <div className="popin_bloc">
+                  <h2>2. Modifier la légende</h2>
+                  {/* <input type="text" /> */}
+                  <div className="popin_bloc_textfield">
+                  <TextField
+              id="standard-legend"
+              label="Légende"
+              className="popin_bloc_input"
+              value={this.state.legend}
+              onChange={this.handleChange('legend')}
+              margin="normal"
+            />
+            </div>
+                  <div className="intro-subtitle animated flipInX"><span></span></div>
                 </div>
-                <div className="dialog__choice" onClick={ this.clickChoice }>
-                  <div className="inputmode">
-                    <input type="text" value={ this.state.inputName || '' } name="toto" onChange={ () => { }} readOnly />
-                    <div className="inputmode-ok">OK</div>
+                </div>
+                <div className="popin_right">
+                <h2>3. Changer la Photo</h2>
+                  <div className="popin_img">
+                    {/* <img src={this.state.img} alt="" /> */}
+                    <Cropper
+                    image={this.state.imageSrc}
+                    crop={this.state.crop}
+                    zoom={this.state.zoom}
+                    aspect={this.state.aspect}
+                    onCropChange={this.onCropChange}
+                    onCropComplete={this.onCropComplete}
+                    onZoomChange={this.onZoomChange}
+                    cropShape='round'
+                    showGrid={false}
+                  />
                   </div>
-                  <button className="action" data-dialog-close="a"><span></span>
-                  </button>
+                  {
+                  this.state.imageSrc && <div className="popin_slider"><Slider
+                    value={this.state.zoom}
+                    min={1}
+                    max={6}
+                    step={0.1}
+                    aria-labelledby="Zoom"
+                    onChange={(e, zoom) => this.onZoomChange(zoom)}
+                  /></div>
+                  }
+                  <input type="file" accept=".jpg,.jpeg,.png,.gif,.bmp" onChange={this.onFileChange} />
+                  <div className="popin_info">Vos photos ne sont pas chargées sur un serveur.</div>
                 </div>
-              </div>
-              */}
+                </div>
+              <button className="popin_button" onClick={this.clicValidate}>VALIDER</button>
             </div>
           </div>
       </div>
