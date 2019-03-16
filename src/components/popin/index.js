@@ -16,12 +16,15 @@ class Popin extends PureComponent {
       aspect: 4 / 4,
       texte: 'Cat in the Hat',
       legend: 'Lorem ipsum',
+      rotation: undefined,
     };
     this.clicClose = this.clicClose.bind(this);
     this.handlerTimer = this.handlerTimer.bind(this);
     this.clickChoice = this.clickChoice.bind(this);
     // this.fileChangedHandler = this.fileChangedHandler.bind(this);
     this.clicValidate = this.clicValidate.bind(this);
+    this.clicRotateLeft = this.clicRotateLeft.bind(this);
+    this.clicRotateRight = this.clicRotateRight.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +44,7 @@ class Popin extends PureComponent {
         if (popinTimeline) popinTimeline.pause();
       }
       */
-      this.setState({ texte: this.props.currentDatas.label, legend: this.props.currentDatas.legend, imageSrc: this.props.currentDatas.img });
+      this.setState({ texte: this.props.currentDatas.label, legend: this.props.currentDatas.legend, imageSrc: this.props.currentDatas.img, crop: this.props.currentDatas.crop, zoom: this.props.currentDatas.zoom });
     }
   }
 
@@ -68,6 +71,37 @@ class Popin extends PureComponent {
 
   clicValidate() {
     this.props.updateDatas(this.state.texte, this.state.legend, this.state.imageSrc, this.state.crop, this.state.zoom);
+  }
+
+  clicRotateLeft() {
+    console.log('@@@ clicRotateLeft');
+    // popin_img
+    const tmpImg = document.querySelector('.popin_img img');
+    console.log('this.img', this.img);
+    if (!this.state.rotation) {
+      tmpImg.style = 'transform: rotate(90deg)';
+      this.setState({ rotation: 90 });
+    } else if (this.state.rotation === 90) {
+      tmpImg.style = 'transform: rotate(180deg)';
+      this.setState({ rotation: 180 });
+    } else {
+      tmpImg.style = 'transform: rotate(0deg)';
+      this.setState({ rotation: undefined });
+    }
+  }
+
+  clicRotateRight() {
+    console.log('@@@ clicRotateRight');
+    if (!this.state.rotation) {
+      this.img.style = 'transform: rotate(-90deg)';
+      this.setState({ rotation: -90 });
+    } else if (this.state.rotation === -90) {
+      this.img.style = 'transform: rotate(-180deg)';
+      this.setState({ rotation: -180 });
+    } else {
+      this.img.style = 'transform: rotate(0deg)';
+      this.setState({ rotation: undefined });
+    }
   }
 
   // REACT EASY CROP
@@ -141,7 +175,6 @@ class Popin extends PureComponent {
                     <div className="popin_bloc_textfield">
                     <TextField
               id="standard-name"
-              label="Texte"
               className="popin_bloc_input"
               value={this.state.texte}
               onChange={this.handleChange('texte')}
@@ -155,7 +188,6 @@ class Popin extends PureComponent {
                   <div className="popin_bloc_textfield">
                   <TextField
               id="standard-legend"
-              label="Légende"
               className="popin_bloc_input"
               value={this.state.legend}
               onChange={this.handleChange('legend')}
@@ -167,7 +199,7 @@ class Popin extends PureComponent {
                 </div>
                 <div className="popin_right">
                 <h2>3. Changer la Photo</h2>
-                  <div className="popin_img">
+                  <div className="popin_img" ref={ r => (this.img = r) }>
                     {/* <img src={this.state.img} alt="" /> */}
                     <Cropper
                     image={this.state.imageSrc}
@@ -182,14 +214,14 @@ class Popin extends PureComponent {
                   />
                   </div>
                   {
-                  this.state.imageSrc && <div className="popin_slider"><Slider
+                  this.state.imageSrc && <React.Fragment><div className="popin_slider"><Slider
                     value={this.state.zoom}
                     min={1}
                     max={6}
                     step={0.1}
                     aria-labelledby="Zoom"
                     onChange={(e, zoom) => this.onZoomChange(zoom)}
-                  /></div>
+                  /></div>{/*<div><button onClick={this.clicRotateLeft}>ROTATE LEFT</button><button onClick={this.clicRotateRight}>ROTATE RIGHT</button></div>*/}</React.Fragment>
                   }
                   <input type="file" accept=".jpg,.jpeg,.png,.gif,.bmp" onChange={this.onFileChange} />
                   <div className="popin_info">Vos photos ne sont pas chargées sur un serveur.</div>
