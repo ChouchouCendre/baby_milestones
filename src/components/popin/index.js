@@ -167,6 +167,7 @@ class Popin extends PureComponent {
             <div className="dialog-inner" style={{ backgroundImage: `url(img/backgrounds/${this.state.nameItem}.jpg)` }}>
             */}
             <div className="dialog-inner">
+              <div className="popin_title">{`Photo ${this.props.id + 1}`}</div>
               <div className="popin_areas">
                 <div className="popin_left">
                   <div className="popin_bloc">

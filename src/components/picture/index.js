@@ -94,7 +94,7 @@ class Picture extends PureComponent {
           }
           </div>
           {/* TEST */}
-          <button className="pictures_line_button" onClick={this.clicChange}>CHANGE</button>
+          <button className="pictures_line_button" onClick={this.clicChange}>CHANGER</button>
           <div className="pictures_line_m">{this.props.months}</div>
           {/* CURVED TEXT */}
           { this.renderSVG() }
