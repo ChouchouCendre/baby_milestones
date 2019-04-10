@@ -25,7 +25,7 @@
 
 .pictures_line_m {
   margin-bottom: -10px;
-  @include font2();
+  @include fontCursive();
   // text-shadow: 1px 1px 2px #999;
   z-index: 1;
 }

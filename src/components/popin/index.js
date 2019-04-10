@@ -25,6 +25,7 @@ class Popin extends PureComponent {
     this.clicValidate = this.clicValidate.bind(this);
     this.clicRotateLeft = this.clicRotateLeft.bind(this);
     this.clicRotateRight = this.clicRotateRight.bind(this);
+    this.onCropChange = this.onCropChange.bind(this);
   }
 
   componentDidMount() {
@@ -106,15 +107,15 @@ class Popin extends PureComponent {
 
   // REACT EASY CROP
 
-  onCropChange = crop => {
+  onCropChange(crop) {
     this.setState({ crop })
   }
 
-  onCropComplete = (croppedArea, croppedAreaPixels) => {
+  onCropComplete(croppedArea, croppedAreaPixels) {
     // console.log(croppedArea, croppedAreaPixels)
   }
 
-  onZoomChange = zoom => {
+  onZoomChange(zoom) {
     this.setState({ zoom })
   }
 

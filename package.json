@@ -2,6 +2,7 @@
   "name": "baby_milestones",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://lesaventuresduchouchou.com/content/baby_milestones",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/lab": "^3.0.0-alpha.30",

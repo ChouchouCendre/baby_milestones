@@ -1,12 +1,9 @@
 import React, { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import './popinInfos.scss';
@@ -155,9 +152,6 @@ class PopinInfos extends PureComponent {
       />
     </form>
     <FormControl component="fieldset">
-    {/*
-          <FormLabel component="legend">Gender</FormLabel>
-    */}
           <RadioGroup
             aria-label="Gender"
             name="gender"

@@ -27,15 +27,15 @@ class Picture extends PureComponent {
 
   // REACT CROP
 
-  onCropChange = crop => {
+  onCropChange(crop) {
     // this.setState({ crop })
   }
 
-  onCropComplete = (croppedArea, croppedAreaPixels) => {
+  onCropComplete(croppedArea, croppedAreaPixels) {
     // console.log(croppedArea, croppedAreaPixels)
   }
 
-  onZoomChange = zoom => {
+  onZoomChange(zoom) {
     // this.setState({ zoom })
   }
 
@@ -64,7 +64,7 @@ class Picture extends PureComponent {
         c-10.4,62.1-69.2,104-131.4,93.6C62.5,249.9,20.6,191.1,31.1,129z"/>
     <text text-anchor="middle">
       <textPath xlink:href="#SVGID_x5F_2_x5F_" startOffset="160">
-        <tspan class="badge-header" fill="#000" font-family="frutiger" font-size="15">${this.props.label}</tspan>
+        <tspan class="badge-header" fill="#000" font-family="Lato" font-size="15">${this.props.label}</tspan>
       </textPath>
     </text>
     <path id="SVGID_x5F_1_x5F_" fill="none" d="M263.9,172.8c11-65.5-33.2-127.6-98.7-138.6S37.5,67.4,26.5,133s33.2,127.6,98.7,138.6

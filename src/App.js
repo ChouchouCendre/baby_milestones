@@ -15,31 +15,31 @@ class App extends Component {
       popinInfosOpen: false,
       datas: JSON.parse(localStorage.getItem('chouchou_datas')) || [
         {
-          label: 'MA PREMIÈRE PHOTO', legend: '4m', img: 'img/20141116_205922.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'MA PREMIÈRE PHOTO', legend: '4m', img: 'img/baby1.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI EU MA PREMIÈRE DENT À', legend: '6m', img: 'img/IMG_6447.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI EU MA PREMIÈRE DENT À', legend: '6m', img: 'img/baby2.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'JE ME SUIS ASSIS SEUL À', legend: '9m', img: 'img/IMG_6447.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'JE ME SUIS ASSIS SEUL À', legend: '9m', img: 'img/baby3.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI FAIT DU 4 PATTES À', legend: '11m', img: 'img/IMG_6456.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI FAIT DU 4 PATTES À', legend: '11m', img: 'img/baby4.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI MARCHÉ À', legend: '12m', img: 'img/IMG_7493.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI MARCHÉ À', legend: '12m', img: 'img/baby5.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'MON PREMIER ANNIVERSAIRE', legend: '12m', img: 'img/IMG_7528.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'MON PREMIER ANNIVERSAIRE', legend: '12m', img: 'img/baby6.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI MANGÉ SEUL À', legend: '17m', img: 'img/IMG_7788.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI MANGÉ SEUL À', legend: '17m', img: 'img/baby7.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI DIT PAPA À', legend: '21m', img: 'img/IMG_8109.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI DIT PAPA À', legend: '21m', img: 'img/baby8.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
         {
-          label: 'J\'AI DIT MAMAN À', legend: '24m', img: 'img/IMG_8396.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: 'J\'AI DIT MAMAN À', legend: '24m', img: 'img/baby9.jpg', crop: { x: 0, y: 0 }, zoom: 1,
         },
       ],
       currentId: undefined,
@@ -73,7 +73,7 @@ class App extends Component {
     this.setState({ datas }, () => {
       const storageDatas = [...datas];
       // const storageDatas = Object.values(datas);
-      storageDatas[this.state.currentId].img = 'img/newborn.jpg';
+      storageDatas[this.state.currentId].img = 'img/baby1.jpg';
       console.log('storageDatas', storageDatas);
       console.log('datas', datas);
       localStorage.setItem('chouchou_datas', JSON.stringify(storageDatas));

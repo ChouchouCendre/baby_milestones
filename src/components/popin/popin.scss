@@ -394,7 +394,7 @@ hr {
 }
 
 h2 {
-	font-family: 'thinking of betty';
+	@include fontCursive2();
 	font-size: 30px;
 }
 

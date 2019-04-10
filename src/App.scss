@@ -7,7 +7,8 @@ body {
 .App {
   text-align: center;
   border: 1px solid #eee;
-  font-family: 'frutiger';
+  // font-family: 'Frutiger';
+  font-family: 'Lato', sans-serif;
   padding: 45px;
 }
 
@@ -16,9 +17,9 @@ body {
   display: flex;
   justify-content: center;
   .firstname_field {
-    font-family: 'thinking of betty';
+    @include fontCursive();
     font-size: 50px;
-    margin: 0 60px;
+    margin: 0px 60px;
   }
   .trait:nth-child(3) {
     transform: scaleX(-1);
@@ -38,11 +39,11 @@ body {
   justify-content: space-around;
   padding: 60px 0;
   .three-second {
-    @include font2();
+    @include fontCursive();
     font-size: 40px;
   }
   .three-date {
-    @include font2();
+    @include fontCursive();
     font-size: 20px;
   }
   .three_title {
@@ -131,7 +132,7 @@ button {
 */
 
 .popin_title {
-  font-family: 'thinking of betty';
+  @include fontCursive();
   font-size: 35px;
   color: coral;
   padding: 10px 0 50px;
