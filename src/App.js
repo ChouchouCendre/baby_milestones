@@ -7,7 +7,6 @@ import PopinInfos from './components/popinInfos';
 class App extends Component {
 
   constructor() {
-    console.log('@@@ constructor');
     super();
     console.log(JSON.parse(localStorage.getItem('chouchou_datas')));
     this.state = {
@@ -59,24 +58,28 @@ class App extends Component {
   }
 
   openPopin(id) {
+    console.log('%copenPopin', 'color: white; background-color: orange; padding: 2px 5px; border-radius: 2px');
     this.setState({ popinOpen: true, currentId: id });
   }
 
   updateDatas(label, legend, img, crop, zoom) {
-    console.log('@@@ updateDatas');
+    console.log('%cupdateDatas', 'color: white; background-color: pink; padding: 2px 5px; border-radius: 2px');
     const datas = [...this.state.datas];
     datas[this.state.currentId].label = label;
     datas[this.state.currentId].legend = legend;
     datas[this.state.currentId].img = img;
     datas[this.state.currentId].crop = crop;
     datas[this.state.currentId].zoom = zoom;
+    console.log('datas', datas);
     this.setState({ datas }, () => {
       const storageDatas = [...datas];
       // const storageDatas = Object.values(datas);
-      storageDatas[this.state.currentId].img = 'img/baby1.jpg';
-      console.log('storageDatas', storageDatas);
-      console.log('datas', datas);
-      localStorage.setItem('chouchou_datas', JSON.stringify(storageDatas));
+      // storageDatas[this.state.currentId].img = 'img/baby1.jpg';
+      try {
+        localStorage.setItem('chouchou_datas', JSON.stringify(storageDatas));
+      } catch (e) {
+        console.log(e);
+      }
     });
     this.closePopin();
   }
@@ -108,12 +111,10 @@ class App extends Component {
   }
 
   clicPrint() {
-    console.log('@@@ clicPrint');
     window.print();
   }
 
   clicOpenPopinInfos() {
-    console.log('@@@ clicOpenPopinInfos');
     this.setState({ popinInfosOpen: true });
   }
 
@@ -122,7 +123,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('this.state', this.state);
     return (
       <React.Fragment>
         <div className="App">

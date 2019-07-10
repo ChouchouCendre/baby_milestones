@@ -1,8 +1,8 @@
 @import './../../variables.scss';
 
 .pictures_line_img {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   background-size: cover;
   border-radius: 50%;
 }
@@ -57,12 +57,12 @@
 }
 
 svg {
-  width: 270px;
-  height: 270px;
+  width: 330px;
+  height: 330px;
 }
 
 .pictures_line_svg {
   position: absolute;
   z-index: -1;
-  top: -40px;
+  top: -50px;
 }

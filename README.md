@@ -6,6 +6,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## After yarn
+
+Modify in helpers.js, function restrictPosition
+function restrictPosition(position, imageSize, cropSize, zoom) {
+  return {
+    // x: restrictPositionCoord(position.x, imageSize.width, cropSize.width, zoom),
+    x: position.x,
+    // y: restrictPositionCoord(position.y, imageSize.height, cropSize.height, zoom)
+    y: position.y
+  };
+}
+
 ### `npm start`
 
 Runs the app in the development mode.<br>

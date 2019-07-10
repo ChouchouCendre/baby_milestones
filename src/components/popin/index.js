@@ -26,6 +26,7 @@ class Popin extends PureComponent {
     this.clicRotateLeft = this.clicRotateLeft.bind(this);
     this.clicRotateRight = this.clicRotateRight.bind(this);
     this.onCropChange = this.onCropChange.bind(this);
+    this.onZoomChange = this.onZoomChange.bind(this);
   }
 
   componentDidMount() {
@@ -132,6 +133,7 @@ class Popin extends PureComponent {
   }
 
   onFileChange = async e => {
+    console.log('@@@ onFileChange');
     if (e.target.files && e.target.files.length > 0) {
       const imageDataUrl = await this.readFile(e.target.files[0])
       this.setState({
@@ -176,7 +178,7 @@ class Popin extends PureComponent {
                     {/* <input type="text" /> */}
                     <div className="popin_bloc_textfield">
                     <TextField
-              id="standard-name"
+              id="standard-text"
               className="popin_bloc_input"
               value={this.state.texte}
               onChange={this.handleChange('texte')}
@@ -226,7 +228,7 @@ class Popin extends PureComponent {
                   /></div>{/*<div><button onClick={this.clicRotateLeft}>ROTATE LEFT</button><button onClick={this.clicRotateRight}>ROTATE RIGHT</button></div>*/}</React.Fragment>
                   }
                   <input type="file" accept=".jpg,.jpeg,.png,.gif,.bmp" onChange={this.onFileChange} />
-                  <div className="popin_info">Vos photos ne sont pas chargées sur un serveur.</div>
+                  <div className="popin_info"></div>
                 </div>
                 </div>
               <button className="popin_button" onClick={this.clicValidate}>VALIDER</button>

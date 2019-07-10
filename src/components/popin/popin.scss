@@ -325,8 +325,8 @@ $animation: all 0.3s cubic-bezier(0.770, 0.000, 0.20, 0.85);
     transform: rotate(45deg);
     font-size: 40px;
     line-height: 1;
-    top: -4px;
-    left: 2px;
+    top: -6px;
+    left: 4px;
     transition: $animation;
   }
   &:after {
@@ -358,8 +358,8 @@ $animation: all 0.3s cubic-bezier(0.770, 0.000, 0.20, 0.85);
 	display: flex;
 	justify-content: center;
 	// position: absolute;
-	height: 200px;
-	width: 200px;
+	height: 250px;
+	width: 250px;
 	background: #666;
 	text-align: center;
 	border-radius: 100%;
@@ -414,8 +414,8 @@ h2 {
 .popin_left, .popin_right {
 	.popin_bloc:first-child {
 		padding-bottom: 50px;
-		// border-bottom: 1px solid #ddd;
-		border-bottom: 1px solid coral;
+		border-bottom: 1px solid #ddd;
+		// border-bottom: 1px solid coral;
 	}
 	.popin_bloc:nth-child(2) {
 		padding-top: 50px;

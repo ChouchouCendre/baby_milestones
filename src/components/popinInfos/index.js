@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import moment from 'moment';
 import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
@@ -7,6 +9,24 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import './popinInfos.scss';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Lato',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
 
 class PopinInfos extends PureComponent {
 
@@ -101,6 +121,7 @@ class PopinInfos extends PureComponent {
                   <h2>1. Prénom</h2>
                     {/* <input type="text" /> */}
                     <div className="popin_bloc_textfield">
+                    <ThemeProvider theme={theme}>
                     <TextField
               id="standard-name"
               className="popin_bloc_input"
@@ -108,6 +129,7 @@ class PopinInfos extends PureComponent {
               onChange={this.handleChange('firstname')}
               margin="normal"
             />
+            </ThemeProvider>
             </div>
                   </div>
                   <div className="popin_bloc">
@@ -186,6 +208,7 @@ class PopinInfos extends PureComponent {
             </div>
           </div>
       </div>
+      
     );
   }
 
