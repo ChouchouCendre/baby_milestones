@@ -35,8 +35,25 @@ body {
 .hover {
   cursor: pointer;
   transition: 300ms color;
+  // position: relative;
   &:hover {
-    color: coral;
+    color: #333;
+    &:after {
+      opacity: 1;
+    }
+  }
+  &:after {
+    content: url(/svg/pencil.svg);
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: 300ms opacity;
+    position: absolute;
+    /*
+    top: 0;
+    right: 0;
+    */
+    margin-left: 10px;
   }
 }
 
@@ -44,6 +61,9 @@ body {
   display: flex;
   justify-content: space-around;
   padding: 80px 0;
+  .three_cont {
+    width: 33.333%
+  }
   .three-second {
     @include fontCursive();
     font-size: 40px;
@@ -51,6 +71,8 @@ body {
   .three-date {
     @include fontCursive();
     font-size: 20px;
+    line-height: 25px;
+    text-transform: lowercase;
   }
   .three_title {
     margin-bottom: 15px;
@@ -109,13 +131,16 @@ button {
 }
 
 .generate {
-  margin-top: 30px;
+  margin: 30px 0 100px;
   text-align: center;
 }
 
 @media print {
-  button {
+  button, .social {
       display: none;
+  }
+  .hover:after {
+    display: none;
   }
 }
 
@@ -129,10 +154,54 @@ button {
 	font-weight: bold;
 	outline: 0;
 	border: 0;
-	transition: 300ms background-color;
+  height: 40px;
+  line-height: 20px;
+  transition: 300ms all;
+  position: relative;
 	&:hover {
-		background-color: darken(coral, 10%);
-	}
+    background-color: darken(coral, 10%);
+    max-width: 250px;
+    border-radius: 25px;
+    span:nth-child(1) {
+      transform: translateY(-30px);
+    }
+    span:nth-child(2) {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+  }
+  &:focus {
+    background-color: darken(coral, 20%);
+  }
+}
+
+.commonButton {
+  overflow: hidden;
+  line-height: 20px;
+  transition: 300ms all;
+  span {
+    display: block;
+    transition: 300ms all;
+    &:nth-child(2) {
+      // display: none;
+      opacity: 0;
+    }
+  }
+  &:hover {
+    max-width: 250px;
+    border-radius: 25px;
+    span:nth-child(1) {
+      transform: translateY(-30px);
+    }
+    span:nth-child(2) {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 /*
@@ -150,4 +219,17 @@ button {
   font-size: 35px;
   color: coral;
   padding: 10px 0 20px;
+}
+
+.social {
+  text-align: center;
+  font-size: 10px;
+  color: #999;
+  // line-height: 20px;
+  span {
+    padding: 0 20px;
+  }
+  a {
+    color: #888;
+  }
 }

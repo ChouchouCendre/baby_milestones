@@ -1,4 +1,5 @@
 module.exports = {
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true
@@ -19,6 +20,9 @@ module.exports = {
         "react/no-access-state-in-setstate": 0,
         "max-len": 0,
         "jsx-a11y/interactive-supports-focus": 0,
+        "jsx-a11y/accessible-emoji": 0,
+        "no-return-assign": 0,
+        "jsx-a11y/label-has-associated-control": 0,
       },
     "extends": ["airbnb", "plugin:react/recommended"]
 };

@@ -39,8 +39,38 @@
   padding: 5px 5px;
   opacity: 0.5;
   outline: 0;
+  height: 30px;
+  overflow: hidden;
+  line-height: 20px;
+  transition: 300ms all;
+  box-shadow: 1px 1px 1px #333;
   &:hover {
     opacity: 0.8;
+  }
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  span {
+    display: block;
+    transition: 300ms all;
+    &:nth-child(2) {
+      opacity: 0;
+    }
+  }
+  &:hover {
+    border-radius: 25px;
+    span:nth-child(1) {
+      transform: translateY(-30px);
+    }
+    span:nth-child(2) {
+      opacity: 1;
+      transform: translateY(-22px);
+    }
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #000;
   }
 }
 

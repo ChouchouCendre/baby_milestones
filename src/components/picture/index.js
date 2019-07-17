@@ -16,27 +16,11 @@ class Picture extends PureComponent {
 
   /*
   componentDidUpdate(prevProps) {
-    console.log('%%% PICTURE.componentDidUpdate');
     if (prevProps.crop !== this.props.crop) {
       this.setState({ crop: this.props.crop, zoom: this.props.zoom });
-      console.log('>>> this.props.zoom', this.props.zoom);
     }
   }
   */
-
-  // REACT CROP
-
-  onCropChange(crop) {
-    // this.setState({ crop })
-  }
-
-  onCropComplete(croppedArea, croppedAreaPixels) {
-    // console.log(croppedArea, croppedAreaPixels)
-  }
-
-  onZoomChange(zoom) {
-    // this.setState({ zoom })
-  }
 
   clicChange() {
     this.props.clicOpenPopin(this.props.id);
@@ -63,7 +47,7 @@ class Picture extends PureComponent {
         c-10.4,62.1-69.2,104-131.4,93.6C62.5,249.9,20.6,191.1,31.1,129z"/>
     <text text-anchor="middle">
       <textPath xlink:href="#SVGID_x5F_2_x5F_" startOffset="160">
-        <tspan class="badge-header" fill="#000" font-family="Lato" font-size="13">${this.props.label}</tspan>
+        <tspan class="badge-header" fill="#000" font-family="Lato" font-size="12">${this.props.label}</tspan>
       </textPath>
     </text>
     <path id="SVGID_x5F_1_x5F_" fill="none" d="M263.9,172.8c11-65.5-33.2-127.6-98.7-138.6S37.5,67.4,26.5,133s33.2,127.6,98.7,138.6
@@ -83,21 +67,26 @@ class Picture extends PureComponent {
             crop={this.props.crop}
             zoom={this.props.zoom}
             aspect={this.state.aspect}
-            onCropChange={this.onCropChange}
-            onCropComplete={this.onCropComplete}
-            onZoomChange={this.onZoomChange}
+            onCropChange={() => { }}
+            onCropComplete={() => { }}
+            onZoomChange={() => { }}
             cropShape="round"
             showGrid={false}
           />
         </div>
         {/* TEST */}
-        <button type="button" className="pictures_line_button" onClick={this.clicChange}>CHANGER</button>
+        <button type="button" className="pictures_line_button" onClick={this.clicChange}>
+          <span>{ this.props.lang === 'fr' ? 'CHANGER' : 'CHANGE'}</span>
+          <span>
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z" /></svg>
+          </span>
+        </button>
         <div className="pictures_line_m">{this.props.months}</div>
         {/* CURVED TEXT */}
         { this.renderSVG() }
         {/* END CURVED TEXT */}
       </div>
-    )
+    );
   }
 }
 
