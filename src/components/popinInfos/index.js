@@ -84,7 +84,7 @@ class PopinInfos extends PureComponent {
             <div className="popin_areas">
               <div className="popin_left">
                 <div className="popin_bloc">
-                  <h2>1. { this.state.lang === 'fr' ? 'Prénom' : 'Name'}</h2>
+                  <h2>1. { this.props.lang === 'fr' ? 'Prénom' : 'Name'}</h2>
                   {/* <input type="text" /> */}
                   <div className="popin_bloc_textfield">
 
@@ -98,7 +98,7 @@ class PopinInfos extends PureComponent {
                   </div>
                 </div>
                 <div className="popin_bloc">
-                  <h2>2. { this.state.lang === 'fr' ? 'Taille' : 'Height'}</h2>
+                  <h2>2. { this.props.lang === 'fr' ? 'Taille' : 'Height'}</h2>
                   {/* <input type="text" /> */}
                   <div className="popin_bloc_textfield">
                     <TextField
@@ -117,7 +117,7 @@ class PopinInfos extends PureComponent {
               <div className="popin_right">
 
                 <div className="popin_bloc">
-                  <h2>3. { this.state.lang === 'fr' ? 'Date de naissance' : 'Birthdate'}</h2>
+                  <h2>3. { this.props.lang === 'fr' ? 'Date de naissance' : 'Birthdate'}</h2>
                   <div className="popin_bloc_textfield">
                     <div className="popin_bloc_textfield-cont">
                       <form noValidate>
@@ -147,7 +147,7 @@ class PopinInfos extends PureComponent {
                 </div>
 
                 <div className="popin_bloc">
-                  <h2>4. { this.state.lang === 'fr' ? 'Poids' : 'Weight'}</h2>
+                  <h2>4. { this.props.lang === 'fr' ? 'Poids' : 'Weight'}</h2>
                   <div className="popin_bloc_textfield">
                     <TextField
                       id="standard-legend"
@@ -164,7 +164,7 @@ class PopinInfos extends PureComponent {
               </div>
             </div>
             <button className="popin_button commonButton" onClick={this.clicValidate} type="button">
-              <span>{ this.state.lang === 'fr' ? 'VALIDER' : 'VALIDATE'}</span>
+              <span>{ this.props.lang === 'fr' ? 'VALIDER' : 'VALIDATE'}</span>
               <span>
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z" /></svg>
               </span>

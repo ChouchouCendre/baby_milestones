@@ -7,15 +7,18 @@ html, body {
 
 body {
   padding: 20px;
+  font-family: 'Lato', sans-serif;
 }
 
 .App {
   text-align: center;
   border: 1px solid #eee;
   // font-family: 'Frutiger';
-  font-family: 'Lato', sans-serif;
   padding: 45px;
   -webkit-print-color-adjust: exact;
+  width: 1000px;
+  position: relative;
+  margin: 0 auto;
 }
 
 .firstname {
@@ -73,6 +76,7 @@ body {
     font-size: 20px;
     line-height: 25px;
     text-transform: lowercase;
+    letter-spacing: 2px;
   }
   .three_title {
     margin-bottom: 15px;
@@ -136,11 +140,14 @@ button {
 }
 
 @media print {
-  button, .social {
+  button, .footer {
       display: none;
   }
   .hover:after {
     display: none;
+  }
+  .desktop, .dialog__content {
+    display: none !important;
   }
 }
 
@@ -221,7 +228,7 @@ button {
   padding: 10px 0 20px;
 }
 
-.social {
+.footer {
   text-align: center;
   font-size: 10px;
   color: #999;
@@ -231,5 +238,40 @@ button {
   }
   a {
     color: #888;
+    transition: 300ms color;
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+.desktop {
+  align-items: flex-start !important;
+  width: 100vw !important;
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+  @include breakpoint(mobile) {
+    opacity: 1;
+    display: block;
+  }
+  svg {
+    color: #ddd;
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .dialog__overlay {
+    opacity: 1;
+  }
+  .dialog__content {
+    opacity: 1;
+    background-color: #fff;
+    height: 90vh;
+    display: flex;
+  }
+  span {
+    padding: 100px;
+    margin: 0 auto;
   }
 }
