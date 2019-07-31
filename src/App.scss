@@ -146,14 +146,14 @@ button {
   .hover:after {
     display: none;
   }
-  .desktop, .dialog__content {
+  .popinDesktop, .dialog__content {
     display: none !important;
   }
 }
 
 .chouchouButton {
   width: 100%;
-	max-width: 350px;
+	max-width: 250px;
 	background-color: coral;
 	border-radius: 5px;
 	padding: 10px;
@@ -194,8 +194,16 @@ button {
       opacity: 0;
     }
   }
+  /*
+  &:before {
+    content: '';
+    background-color: red;
+    width: 350px;
+    height: 20px;
+  }
+  */
   &:hover {
-    max-width: 250px;
+    max-width: 350px;
     border-radius: 25px;
     span:nth-child(1) {
       transform: translateY(-30px);
@@ -245,7 +253,7 @@ button {
   }
 }
 
-.desktop {
+.popinDesktop {
   align-items: flex-start !important;
   width: 100vw !important;
   opacity: 0;
@@ -274,4 +282,18 @@ button {
     padding: 100px;
     margin: 0 auto;
   }
+}
+
+.bannerNavigator {
+  background-color: palevioletred;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  font-size: 13px;
+  padding: 5px 0;
+  z-index: 1;
 }
