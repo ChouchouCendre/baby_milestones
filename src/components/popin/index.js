@@ -145,41 +145,10 @@ class Popin extends PureComponent {
           <div className="dialog-inner">
             <div className="popin_title">{`Photo ${this.props.id + 1}`}</div>
             <div className="popin_areas">
+
               <div className="popin_left">
-                <div className="popin_bloc">
-                  <h2>1. { this.props.lang !== 'en' ? 'Modifier le texte' : 'Modify text'}</h2>
-                  {/* <input type="text" /> */}
-                  <div className="popin_bloc_textfield">
-                    <TextField
-                      id="standard-text"
-                      className="popin_bloc_input"
-                      value={this.state.texte}
-                      onChange={this.handleChange('texte')}
-                      margin="normal"
-                    />
-                  </div>
-                </div>
-                <div className="popin_bloc">
-                  <h2>2. { this.props.lang !== 'en' ? 'Modifier la légende' : 'Modify legend'}</h2>
-                  {/* <input type="text" /> */}
-                  <div className="popin_bloc_textfield">
-                    <TextField
-                      id="standard-legend"
-                      className="popin_bloc_input"
-                      value={this.state.legend}
-                      onChange={this.handleChange('legend')}
-                      margin="normal"
-                      inputProps={{ min: 0, style: { textAlign: 'center' } }}
-                      style={{ width: 100 }}
-                    />
-                  </div>
-                  <div className="intro-subtitle animated flipInX"><span /></div>
-                </div>
-              </div>
-              <div className="popin_right">
-                <h2>3. { this.props.lang !== 'en' ? 'Changer la Photo' : 'Change picture'}</h2>
+                <h2>1. { this.props.lang !== 'en' ? 'Changer la Photo' : 'Change picture'}</h2>
                 <div className="popin_img" ref={r => (this.img = r)}>
-                  {/* <img src={this.state.img} alt="" /> */}
                   <Cropper
                     image={this.state.imageSrc}
                     crop={this.state.crop}
@@ -211,9 +180,42 @@ class Popin extends PureComponent {
                     <input type="file" id="file" className="buttonFile" accept=".jpg,.jpeg,.png,.gif,.bmp" onChange={this.onFileChange} />
                   </label>
                 </button>
-
                 <div className="popin_info" />
+
               </div>
+
+              <div className="popin_right">
+                <div className="popin_bloc">
+                  <h2>2. { this.props.lang !== 'en' ? 'Modifier le texte' : 'Modify text'}</h2>
+                  {/* <input type="text" /> */}
+                  <div className="popin_bloc_textfield">
+                    <TextField
+                      id="standard-text"
+                      className="popin_bloc_input"
+                      value={this.state.texte}
+                      onChange={this.handleChange('texte')}
+                      margin="normal"
+                    />
+                  </div>
+                </div>
+                <div className="popin_bloc">
+                  <h2>3. { this.props.lang !== 'en' ? 'Modifier la légende' : 'Modify legend'}</h2>
+                  {/* <input type="text" /> */}
+                  <div className="popin_bloc_textfield">
+                    <TextField
+                      id="standard-legend"
+                      className="popin_bloc_input"
+                      value={this.state.legend}
+                      onChange={this.handleChange('legend')}
+                      margin="normal"
+                      inputProps={{ min: 0, style: { textAlign: 'center' } }}
+                      style={{ width: 100 }}
+                    />
+                  </div>
+                  <div className="intro-subtitle animated flipInX"><span /></div>
+                </div>
+              </div>
+
             </div>
             <button className="popin_button commonButton" onClick={this.clicValidate} type="button">
               <span>{ this.props.lang !== 'en' ? 'VALIDER' : 'VALIDATE'}</span>

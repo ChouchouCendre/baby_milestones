@@ -5,6 +5,12 @@
   height: 250px;
   background-size: cover;
   border-radius: 50%;
+  &:hover {
+    .pictures_rotate {
+      // display: inline;
+      opacity: 1;
+    }
+  }
 }
 
 .pictures_line {
@@ -96,4 +102,20 @@ svg {
   z-index: -1;
   // top: -50px;
   bottom: -35px;
+}
+
+.pictures_rotate {
+  position: absolute;
+  top: 160px;
+  // right: 0;
+  // display: none;
+  opacity: 0;
+  transition: 600ms all;
+  cursor: pointer;
+  transform: scaleX(-1);
+  svg {
+    width: 20px;
+    height: 20px;
+    color: coral;
+  } 
 }

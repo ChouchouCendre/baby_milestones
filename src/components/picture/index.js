@@ -4,14 +4,17 @@ import './picture.scss';
 
 class Picture extends PureComponent {
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       // crop: { x: 0, y: 0 },
       // zoom: 1,
       aspect: 4 / 4,
+      rotation: props.rotation,
     };
     this.clicChange = this.clicChange.bind(this);
+    this.clicRotate = this.clicRotate.bind(this);
+    this.updateDatas = this.updateDatas.bind(this);
   }
 
   /*
@@ -24,6 +27,19 @@ class Picture extends PureComponent {
 
   clicChange() {
     this.props.clicOpenPopin(this.props.id);
+  }
+
+  clicRotate() {
+    if (this.state.rotation !== 180) {
+      this.setState({ rotation: this.state.rotation + 90 }, this.updateDatas);
+    } else {
+      this.setState({ rotation: 0 }, this.updateDatas);
+    }
+  }
+
+  updateDatas() {
+    console.log('%cupdateDatas', 'color: white; background-color: orange; padding: 2px 5px; border-radius: 2px');
+    this.props.updateDatasRotation(this.props.id, this.state.rotation);
   }
 
   renderSVG() {
@@ -61,7 +77,7 @@ class Picture extends PureComponent {
     return (
       <div className="pictures_line_img">
         {/* TEST */}
-        <div className="popin_img">
+        <div className="popin_img" style={{ transform: `rotate(${this.state.rotation}deg)` }}>
           <Cropper
             image={this.props.img}
             crop={this.props.crop}
@@ -85,6 +101,9 @@ class Picture extends PureComponent {
         {/* CURVED TEXT */}
         { this.renderSVG() }
         {/* END CURVED TEXT */}
+        <div className="pictures_rotate" onClick={this.clicRotate} role="button">
+          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="undo" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12 0h48c6.627 0 12 5.373 12 12v78.112C117.773 39.279 184.26 7.47 258.175 8.007c136.906.994 246.448 111.623 246.157 248.532C504.041 393.258 393.12 504 256.333 504c-64.089 0-122.496-24.313-166.51-64.215-5.099-4.622-5.334-12.554-.467-17.42l33.967-33.967c4.474-4.474 11.662-4.717 16.401-.525C170.76 415.336 211.58 432 256.333 432c97.268 0 176-78.716 176-176 0-97.267-78.716-176-176-176-58.496 0-110.28 28.476-142.274 72.333h98.274c6.627 0 12 5.373 12 12v48c0 6.627-5.373 12-12 12z" /></svg>
+        </div>
       </div>
     );
   }

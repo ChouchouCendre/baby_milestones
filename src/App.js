@@ -31,31 +31,31 @@ class App extends Component {
       popinInfosOpen: false,
       datas: JSON.parse(localStorage.getItem('chouchou_datas')) || [
         {
-          label: lang === 'en' ? 'MY FIRST PICTURE' : 'MA PREMIÈRE PHOTO', legend: '4m', img: 'img/baby1.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'MY FIRST PICTURE' : 'MA PREMIÈRE PHOTO 📷', legend: '4m', img: 'img/baby1.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'MY FIRST TOOTH' : 'J\'AI EU MA PREMIÈRE DENT À', legend: '6m', img: 'img/baby2.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'MY FIRST TOOTH' : 'J\'AI EU MA PREMIÈRE DENT À', legend: '6m', img: 'img/baby2.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'I SAT BY MYSELFT AT' : 'JE ME SUIS ASSIS SEUL À', legend: '9m', img: 'img/baby3.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'I SAT BY MYSELFT AT' : 'JE ME SUIS ASSIS SEUL À', legend: '9m', img: 'img/baby3.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'I HAVE CRAWLED AT' : 'J\'AI FAIT DU 4 PATTES À', legend: '11m', img: 'img/baby4.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'I HAVE CRAWLED AT' : 'J\'AI FAIT DU 4 PATTES À', legend: '11m', img: 'img/baby4.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'I HAVE WALKED AT' : 'J\'AI MARCHÉ À', legend: '12m', img: 'img/baby5.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'I HAVE WALKED AT' : 'J\'AI MARCHÉ À 👣', legend: '12m', img: 'img/baby5.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'MY FIRST BIRTHDAY' : 'MON PREMIER ANNIVERSAIRE', legend: '12m', img: 'img/baby6.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'MY FIRST BIRTHDAY 🎉' : 'MON PREMIER ANNIVERSAIRE 🎉', legend: '12m', img: 'img/baby6.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'MY FIRST SOLID MEAL' : 'J\'AI MANGÉ SEUL À', legend: '17m', img: 'img/baby7.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'MY FIRST SOLID MEAL 🥄' : 'J\'AI MANGÉ SEUL À 🥄', legend: '17m', img: 'img/baby7.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'I HAVE SAID DADDY AT' : 'J\'AI DIT PAPA À', legend: '21m', img: 'img/baby8.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'I HAVE SAID DADDY AT' : 'J\'AI DIT PAPA À', legend: '21m', img: 'img/baby8.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
         {
-          label: lang === 'en' ? 'MY FIRST RIDE' : 'J\'AI DIT MAMAN À', legend: '24m', img: 'img/baby9.jpg', crop: { x: 0, y: 0 }, zoom: 1,
+          label: lang === 'en' ? 'MY FIRST RIDE' : 'J\'AI DIT MAMAN À', legend: '24m', img: 'img/baby9.jpg', crop: { x: 0, y: 0 }, zoom: 1, rotation: 0,
         },
       ],
       currentId: undefined,
@@ -74,6 +74,7 @@ class App extends Component {
     this.clicOpenPopinInfos = this.clicOpenPopinInfos.bind(this);
     this.closePopinInfos = this.closePopinInfos.bind(this);
     this.updateDatasInfos = this.updateDatasInfos.bind(this);
+    this.updateDatasRotation = this.updateDatasRotation.bind(this);
   }
 
   openPopin(id) {
@@ -85,6 +86,11 @@ class App extends Component {
     datas[this.state.currentId].label = label;
     datas[this.state.currentId].legend = legend;
     datas[this.state.currentId].img = img;
+    console.info('img.length', img.length);
+    // Local storage = 10 Mo
+    // 2 867 515 = 2,2 Mo
+    // 1 363 031 = 1 Mo
+    // 232 231 = 174 Ko
     datas[this.state.currentId].crop = crop;
     datas[this.state.currentId].zoom = zoom;
     this.setState({ datas }, () => {
@@ -93,6 +99,7 @@ class App extends Component {
       // storageDatas[this.state.currentId].img = 'img/baby1.jpg';
       try {
         localStorage.setItem('chouchou_datas', JSON.stringify(storageDatas));
+        // localStorage.setItem('chouchou_images', JSON.stringify(storageDatas));
       } catch (e) {
         console.error(e);
       }
@@ -116,6 +123,20 @@ class App extends Component {
     localStorage.setItem('chouchou_hourBirthdate', hourBirthdate);
     localStorage.setItem('chouchou_weight', weight);
     localStorage.setItem('chouchou_gender', gender);
+  }
+
+  updateDatasRotation(id, rotation) {
+    console.log('@@@ updateDatasRotation', id, rotation);
+    const datas = [...this.state.datas];
+    datas[id].rotation = rotation;
+    this.setState({ datas }, () => {
+      const storageDatas = [...datas];
+      try {
+        localStorage.setItem('chouchou_datas', JSON.stringify(storageDatas));
+      } catch (e) {
+        console.error(e);
+      }
+    });
   }
 
   closePopin() {
@@ -142,7 +163,7 @@ class App extends Component {
   }
 
   renderPictures() {
-    return this.state.datas.map((data, i) => <Picture key={i} id={i} clicOpenPopin={this.openPopin} label={data.label} img={data.img} months={data.legend} crop={data.crop} zoom={data.zoom} lang={this.state.lang} />);
+    return this.state.datas.map((data, i) => <Picture key={i} id={i} clicOpenPopin={this.openPopin} label={data.label} img={data.img} months={data.legend} crop={data.crop} zoom={data.zoom} lang={this.state.lang} rotation={data.rotation} updateDatasRotation={this.updateDatasRotation} />);
   }
 
   renderDesktopIcon() {
@@ -218,11 +239,15 @@ class App extends Component {
           </button>
         </div>
         <div className="footer">
-          <span>{ this.state.lang !== 'en' ? 'Crédits :' : 'Credits :'} <a href="http://www.lesaventuresduchouchou.com" target="_blank" rel="noopener noreferrer">Les Aventures du Chouchou Cendré</a></span>
+          <span>{ this.state.lang !== 'en' ? 'Crédits :' : 'Credits :'} <a href="https://www.lesaventuresduchouchou.com" target="_blank" rel="noopener noreferrer">Les Aventures du Chouchou Cendré</a></span>
           /
-          <span>{ this.state.lang !== 'en' ? '🇬🇧  Also available in' : '🇫🇷  Aussi disponible en'} <a href="index.html">Français</a></span>
+          {
+            this.state.lang !== 'en'
+              ? <span>🇬🇧  Also available in <a href="index.html?lang=en">english</a></span>
+              : <span>🇫🇷  Aussi disponible en <a href="index.html">français</a></span>
+          }
           /
-          <span>{ this.state.lang !== 'en' ? '👥  Partager : ' : '👥  Share: '} <a href="TODO" target="_blank" rel="noopener noreferrer">Facebook</a> | <a href="TODO" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="TODO" target="_blank" rel="noopener noreferrer">Pinterest</a></span>
+          <span>{ this.state.lang !== 'en' ? '👥  Partager : ' : '👥  Share: '} <a href="https://www.facebook.com/LesAventuresDuChouchou/" target="_blank" rel="noopener noreferrer">Facebook</a> | <a href="https://twitter.com/ChouchouCendre" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="https://www.instagram.com/chouchou_cendre/" target="_blank" rel="noopener noreferrer">Instagram</a> | <a href="https://www.pinterest.fr/chouchoucendre/" target="_blank" rel="noopener noreferrer">Pinterest</a></span>
           /
           <span>SVG Icons from <a href="https://fontawesome.com" target="_blank" rel="noopener noreferrer">Font Awesome</a></span>
         </div>

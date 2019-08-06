@@ -15,6 +15,9 @@
 	justify-content: center;
 	pointer-events: none;
 	z-index: 3;
+	@media (max-height:550px) {
+		align-items: flex-start;
+	}
 	/*
 	button {
 		padding: 10px;
@@ -420,6 +423,8 @@ h2 {
 
 .popin_left, .popin_right {
 	flex-grow: 1;
+	flex-basis: 50%;
+	box-sizing: border-box;
 }
 
 .popin_left, .popin_right {
@@ -434,6 +439,7 @@ h2 {
 
 .popin_right {
 	border-left: 1px solid #ddd;
+	padding-left: 30px;
 }
 
 .popin_button {

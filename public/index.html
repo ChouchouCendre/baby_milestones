@@ -2,19 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!--
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    -->
+    <link rel="shortcut icon" href="/img/favicon.ico" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
-    <!-- Meta to remove -->
-    <meta name="robots" content="noindex, nofollow">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Baby Milestones</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1211135-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-1211135-7');
+    </script>
+    <style type="text/css">
+    .adsense {
+      padding-top: 30px;
+    }
+    @media print {
+      .adsense {
+          display: none;
+      }
+    }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <!-- Google Adsense -->
+    <div class="adsense">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- Baby Milestones -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-2307517878402039"
+          data-ad-slot="3185894401"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
   </body>
 </html>
