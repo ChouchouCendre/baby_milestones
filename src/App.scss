@@ -19,6 +19,7 @@ body {
   width: 1000px;
   position: relative;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .firstname {
@@ -109,6 +110,7 @@ button {
     "c d d";
   align-content: space-between;
   justify-content: space-around;
+  height: 960px;
   // grid-auto-rows: 100px;
   /*
   .pictures_line_img {

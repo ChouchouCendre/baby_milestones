@@ -64,6 +64,11 @@ class PopinInfos extends PureComponent {
   };
   */
 
+  capitalize(lbl) {
+    const s = lbl.toLowerCase();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   render() {
     const classDialog = this.props.displayPopin ? ' dialog--open' : '';
     return (
@@ -76,7 +81,7 @@ class PopinInfos extends PureComponent {
             <div className="popin_areas">
               <div className="popin_left">
                 <div className="popin_bloc">
-                  <h2>1. { this.props.lang !== 'en' ? 'Prénom' : 'Name'}</h2>
+                  <h2>1. { this.capitalize(this.props.labelPrenom) }</h2>
                   {/* <input type="text" /> */}
                   <div className="popin_bloc_textfield">
 
@@ -90,7 +95,7 @@ class PopinInfos extends PureComponent {
                   </div>
                 </div>
                 <div className="popin_bloc">
-                  <h2>2. { this.props.lang !== 'en' ? 'Taille' : 'Height'}</h2>
+                  <h2>2. { this.capitalize(this.props.labelTaille) }</h2>
                   {/* <input type="text" /> */}
                   <div className="popin_bloc_textfield">
                     <TextField
@@ -109,7 +114,7 @@ class PopinInfos extends PureComponent {
               <div className="popin_right">
 
                 <div className="popin_bloc">
-                  <h2>3. { this.props.lang !== 'en' ? 'Date de naissance' : 'Birthdate'}</h2>
+                  <h2>3. { this.capitalize(this.props.labelDate) }</h2>
                   <div className="popin_bloc_textfield">
                     <div className="popin_bloc_textfield-cont">
                       {/*
@@ -158,7 +163,7 @@ class PopinInfos extends PureComponent {
                 </div>
 
                 <div className="popin_bloc">
-                  <h2>4. { this.props.lang !== 'en' ? 'Poids' : 'Weight'}</h2>
+                  <h2>4. { this.capitalize(this.props.labelPoids ) }</h2>
                   <div className="popin_bloc_textfield">
                     <TextField
                       id="standard-legend"

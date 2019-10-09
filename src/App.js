@@ -8,14 +8,17 @@ class App extends Component {
 
   constructor() {
     super();
-    // console.log(JSON.parse(localStorage.getItem('chouchou_datas')));
 
     let lang;
+    let couple = false;
     if ('URLSearchParams' in window) {
       const searchParams = new URLSearchParams(document.location.search);
       const langParam = searchParams.get('lang');
       lang = langParam || 'fr';
       lang = lang.toLowerCase();
+      // Couple
+      const coupleParam = searchParams.get('couple');
+      couple = coupleParam === 'true';
     } else {
       lang = 'fr';
     }
@@ -25,6 +28,18 @@ class App extends Component {
     const uA = navigator.userAgent.toLowerCase();
     const isSafari = uA.indexOf('safari') !== -1 && uA.indexOf('edge') === -1;
     const isChromeOrSafari = isChrome || isSafari;
+
+    // Default labels
+    let defaultName = 'Hugo';
+    if (couple) defaultName = 'Hugo & Lea';
+    //
+    let defaultHeight = '50 cm';
+    if (!couple && lang === 'en') defaultHeight = '20 inches';
+    if (couple) defaultHeight = '12/12/2017';
+    //
+    let defaultWeight = '2,58 kg';
+    if (!couple && lang === 'en') defaultWeight = '6.3 pounds';
+    if (couple) defaultWeight = '9';
 
     this.state = {
       popinOpen: false,
@@ -59,14 +74,15 @@ class App extends Component {
         },
       ],
       currentId: undefined,
-      firstname: localStorage.getItem('chouchou_firstname') || 'Hugo',
-      height: localStorage.getItem('chouchou_height') || (lang === 'en' ? '20 inches' : '50 cm'),
+      firstname: localStorage.getItem('chouchou_firstname') || defaultName,
+      height: localStorage.getItem('chouchou_height') || defaultHeight,
       birthdate: localStorage.getItem('chouchou_birthdate') || (lang === 'en' ? '12/30/2014' : '30/12/2014'),
       hourBirthdate: localStorage.getItem('chouchou_hourBirthdate') || (lang === 'en' ? '10am' : '10h30'),
-      weight: localStorage.getItem('chouchou_weight') || (lang === 'en' ? '6.3 pounds' : '2,58 kg'),
+      weight: localStorage.getItem('chouchou_weight') || defaultWeight,
       gender: localStorage.getItem('chouchou_gender') || 'M',
       lang,
       isChromeOrSafari,
+      couple,
     };
     this.openPopin = this.openPopin.bind(this);
     this.closePopin = this.closePopin.bind(this);
@@ -75,6 +91,32 @@ class App extends Component {
     this.closePopinInfos = this.closePopinInfos.bind(this);
     this.updateDatasInfos = this.updateDatasInfos.bind(this);
     this.updateDatasRotation = this.updateDatasRotation.bind(this);
+  }
+
+  getLabel(name) {
+    let result = '';
+    const { lang } = this.state;
+    // COUPLE
+    if (this.state.couple) {
+      if (name === 'prenom') result = lang !== 'en' ? 'NOTRE PETIT COUPLE' : 'OUR LITTLE COUPLE';
+      if (name === 'taille') result = lang !== 'en' ? 'DATE DE PACS / MARIAGE' : 'WEDDING DATE';
+      if (name === 'poids') result = lang !== 'en' ? 'NOMBRE D\'ANNÉES' : 'NUMBERS OF YEARS';
+      if (name === 'date') result = lang !== 'en' ? 'DATE DE RENCONTRE' : 'OUR FIRST ENCOUNTER';
+      
+      return result;
+    }
+    // BABY
+    if (name === 'prenom') result = lang !== 'en' ? 'MON PETIT PRÉNOM' : 'MY LITTLE NAME';
+    if (name === 'taille') result = lang !== 'en' ? 'JE MESURAIS' : 'MY HEIGHT';
+    if (name === 'poids') result = lang !== 'en' ? 'JE PESAIS' : 'MY WEIGHT';
+    if (name === 'date') {
+      if (lang !== 'en') {
+        result = this.state.gender === 'M' ? 'JE SUIS NÉ LE' : 'JE SUIS NÉE LE';
+      } else {
+        result = 'MY BIRTHDATE';
+      }
+    }
+    return result;
   }
 
   openPopin(id) {
@@ -126,7 +168,6 @@ class App extends Component {
   }
 
   updateDatasRotation(id, rotation) {
-    console.log('@@@ updateDatasRotation', id, rotation);
     const datas = [...this.state.datas];
     datas[id].rotation = rotation;
     this.setState({ datas }, () => {
@@ -155,12 +196,18 @@ class App extends Component {
     this.setState({ popinInfosOpen: true });
   }
 
+  /*
   returnLabel() {
-    if (this.state.lang !== 'en') {
+    const { lang } = this.state;
+    if (this.state.couple) {
+      return lang !== 'en' ? 'DATE DE RECONTRE' : 'BBB';
+    }
+    if (lang !== 'en') {
       return this.state.gender === 'M' ? 'JE SUIS NÉ LE' : 'JE SUIS NÉE LE';
     }
     return 'MY BIRTHDATE';
   }
+  */
 
   renderPictures() {
     return this.state.datas.map((data, i) => <Picture key={i} id={i} clicOpenPopin={this.openPopin} label={data.label} img={data.img} months={data.legend} crop={data.crop} zoom={data.zoom} lang={this.state.lang} rotation={data.rotation} updateDatasRotation={this.updateDatasRotation} />);
@@ -200,7 +247,7 @@ class App extends Component {
           <div>
             <div className="heart"><img src="svg/heart.svg" width="40" alt="" /></div>
             <div className="heart2"><img src="svg/heart.svg" width="40" alt="" /></div>
-            <div>{ this.state.lang !== 'en' ? 'MON PETIT PRÉNOM' : 'MY LITTLE NAME' }</div>
+            <div>{ this.getLabel('prenom') }</div>
             <div className="firstname">
               <div className="trait"><img src="svg/trait.svg" width="100" alt="" /></div>
               <div className="firstname_field hover" role="button" onClick={this.clicOpenPopinInfos}>{ this.state.firstname }</div>
@@ -208,16 +255,16 @@ class App extends Component {
             </div>
             <div className="three">
               <div className="three_cont">
-                <div className="three_title">{ this.state.lang !== 'en' ? 'JE MESURAIS' : 'MY HEIGHT'}</div>
+                <div className="three_title">{ this.getLabel('taille') }</div>
                 <div className="three-second hover" role="button" onClick={this.clicOpenPopinInfos}>{ this.state.height }</div>
               </div>
               <div className="three_cont">
-                <div className="three_title">{this.returnLabel()}
+                <div className="three_title">{ this.getLabel('date') }
                 </div>
                 <div className="three-date hover" role="button" onClick={this.clicOpenPopinInfos}>{ this.state.birthdate }<br />{this.state.lang !== 'en' && 'à'} { this.state.hourBirthdate }</div>
               </div>
               <div className="three_cont">
-                <div className="three_title">{ this.state.lang !== 'en' ? 'JE PESAIS' : 'MY WEIGHT'}</div>
+                <div className="three_title">{ this.getLabel('poids') }</div>
                 <div className="three-second hover" role="button" onClick={this.clicOpenPopinInfos}>{ this.state.weight }</div>
               </div>
             </div>
@@ -227,7 +274,17 @@ class App extends Component {
               </div>
             </div>
             <Popin displayPopin={this.state.popinOpen} closePopin={this.closePopin} currentDatas={this.state.datas[this.state.currentId]} updateDatas={this.updateDatas} id={this.state.currentId} lang={this.state.lang} />
-            <PopinInfos displayPopin={this.state.popinInfosOpen} closePopin={this.closePopinInfos} updateDatas={this.updateDatasInfos} appState={this.state} lang={this.state.lang} />
+            <PopinInfos
+              displayPopin={this.state.popinInfosOpen}
+              closePopin={this.closePopinInfos}
+              updateDatas={this.updateDatasInfos}
+              appState={this.state}
+              lang={this.state.lang}
+              labelPrenom={this.getLabel('prenom')}
+              labelPoids={this.getLabel('poids')}
+              labelTaille={this.getLabel('taille')}
+              labelDate={this.getLabel('date')}
+            />
           </div>
         </div>
         <div className="generate">
@@ -247,7 +304,13 @@ class App extends Component {
               : <span>🇫🇷  Aussi disponible en <a href="index.html">français</a></span>
           }
           /
-          <span>{ this.state.lang !== 'en' ? '👥  Partager : ' : '👥  Share: '} <a href="https://www.facebook.com/LesAventuresDuChouchou/" target="_blank" rel="noopener noreferrer">Facebook</a> | <a href="https://twitter.com/ChouchouCendre" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="https://www.instagram.com/chouchou_cendre/" target="_blank" rel="noopener noreferrer">Instagram</a> | <a href="https://www.pinterest.fr/chouchoucendre/" target="_blank" rel="noopener noreferrer">Pinterest</a></span>
+          {
+            this.state.lang !== 'en'
+              ? <span>👥 <a href="index.html?couple=true" rel="noopener noreferrer">Couple version</a></span>
+              : <span>👥 <a href="index.html?lang=en&couple=true" rel="noopener noreferrer">Version couple</a></span>
+          }
+          /
+          <span>{ this.state.lang !== 'en' ? '📍  Partager : ' : '📍  Share: '} <a href="https://www.facebook.com/LesAventuresDuChouchou/" target="_blank" rel="noopener noreferrer">Facebook</a> | <a href="https://twitter.com/ChouchouCendre" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="https://www.instagram.com/chouchou_cendre/" target="_blank" rel="noopener noreferrer">Instagram</a> | <a href="https://www.pinterest.fr/chouchoucendre/" target="_blank" rel="noopener noreferrer">Pinterest</a></span>
           /
           <span>SVG Icons from <a href="https://fontawesome.com" target="_blank" rel="noopener noreferrer">Font Awesome</a></span>
         </div>
